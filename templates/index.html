@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meine Cloud</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Willkommen bei deiner persönlichen Cloud</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="welcome-section">
+            <p>Hier kannst du deine Dateien sicher speichern, verwalten und jederzeit abrufen.</p>
+            <div class="buttons">
+                <a href="{{ url_for('login') }}" class="btn">Anmelden</a>
+                <a href="{{ url_for('register') }}" class="btn">Registrieren</a>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2>Funktionen</h2>
+            <ul>
+                <li>Einfacher und sicherer Datei-Upload</li>
+                <li>Übersichtliche Dateiverwaltung</li>
+                <li>Geschützter Zugriff auf deine Dateien</li>
+                <li>Benutzerdefiniertes Dashboard</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

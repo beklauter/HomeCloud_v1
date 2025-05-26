@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - Meine Cloud</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin-Dashboard</h1>
+            <div>
+                <span>Angemeldet als: {{ admin_name }}</span>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-small">Mein Dashboard</a>
+                <a href="{{ url_for('logout') }}" class="btn btn-small">Abmelden</a>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="admin-section">
+            <h2>Benutzerübersicht</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Benutzername</th>
+                        <th>Benutzer-ID</th>
+                        <th>Erstellt am</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.created_at }}</td>
+                            <td>
+                                <a href="{{ url_for('admin_view_user', user_id=user.id) }}" class="btn btn-small">Dateien anzeigen</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
